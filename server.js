@@ -17,7 +17,6 @@ const connectDB = require('./config/db');
 // Dotenv configuration
 dotenv.config({ path: './config/config.env' })
 
-
 // Connect DB
 connectDB();
 
@@ -27,6 +26,9 @@ const users = require('./routes/users');
 
 
 const app = express();
+
+// Body parses
+app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
