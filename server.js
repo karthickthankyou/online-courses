@@ -12,11 +12,26 @@ const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 const cors = require('cors');
+const connectDB = require('./config/db');
+
+// Dotenv configuration
+dotenv.config({ path: './config/config.env' })
+
+
+// Connect DB
+connectDB();
+
+
+// Routes
+const users = require('./routes/users');
 
 
 const app = express();
 
 const PORT = process.env.PORT || 5000;
+
+
+app.use('/api/v1/users', users);
 
 app.get('/', (req, res) => {
   res.json({ msg: 'Hello there' })
