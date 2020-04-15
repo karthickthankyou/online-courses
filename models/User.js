@@ -18,22 +18,27 @@ const userObj = {
     type: String,
     required: [true, 'Please enter password'],
     match: [
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
       "Please enter valid password"
     ],
     select: false,
-    resetPasswordToken: String,
-    resetPasswordExpire: Date,
-    createdAt: {
-      type: Date,
-      default: Date.now
-    }
   },
   roles: {
     type: [String],
-    required: [true, 'Please enter role'],
-    enum: ['teacher', 'student', 'admin'],
+    required: [true, "Please enter roles"],
+    enum: [
+      'teacher',
+      'student',
+      'admin'
+    ],
+    default: undefined, // Required wont work as default is []
   },
+  resetPasswordToken: String,
+  resetPasswordExpire: Date,
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 }
 
 const UserSchema = new mongoose.Schema(userObj);
