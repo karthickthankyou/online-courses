@@ -14,6 +14,8 @@ const hpp = require('hpp');
 const cors = require('cors');
 const connectDB = require('./config/db');
 
+const errorHandler = require('./middleware/error');
+
 // Dotenv configuration
 dotenv.config({ path: './config/config.env' })
 
@@ -32,8 +34,12 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
-
+// All routes
 app.use('/api/v1/users', users);
+
+
+// Error handler
+app.use(errorHandler);
 
 app.get('/', (req, res) => {
   res.json({ msg: 'Hello there' })

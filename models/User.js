@@ -14,14 +14,9 @@ const userObj = {
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       'Please enter valid email']
   },
-  roles: {
-    type: [String],
-    required: [true, 'Please enter role'],
-    enum: ['teacher', 'student', 'admin'],
-  },
   password: {
     type: String,
-    reqiured: [true, 'Please enter password'],
+    required: [true, 'Please enter password'],
     match: [
       /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
       "Please enter valid password"
@@ -33,13 +28,20 @@ const userObj = {
       type: Date,
       default: Date.now
     }
-  }
+  },
+  roles: {
+    type: [String],
+    required: [true, 'Please enter role'],
+    enum: ['teacher', 'student', 'admin'],
+  },
 }
 
 const UserSchema = new mongoose.Schema(userObj);
 
 // Encrypt password
 UserSchema.pre('save', async function (next) {
+  console.log(this, 'Saving the document');
+
   if (!this.isModified('password')) {
     next();
   }
